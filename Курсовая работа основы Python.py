@@ -155,7 +155,6 @@ def upload_files_to_yadisk(file_name_and_url, vk, uploader):
         if you_need_to_create_a_directory: uploader.create_directory(vk.id)
         # загружаем файл на яндекс диск
         uploader.upload_a_file_using_request(file_path, file_path, replace=True)
-        #bar.next()
         time.sleep(0.1)
         os.remove(file_path)
         printProgressBar(count - 1 + 1, l, prefix = 'Progress:', suffix = 'Complete', length = 50)
@@ -174,11 +173,8 @@ def main(photos_count=5):
     photos_info = vk.photos_get(vk.id.split('[')[1][2:-1]).json()['response']['items'][:photos_count]
     # получение списка для записи в json файл и списка с именами фото и url
     information_about_saved_photos, file_name_and_url = getting_lists_of_information_by_files(photos_info)
-    # создание прогресс бара
-    #bar = IncrementalBar('Countdown', max=len(file_name_and_url.items()))
     # загрузка файлов на яндекс диск
     upload_files_to_yadisk(file_name_and_url, vk, uploader)
-    #bar.finish()
     # запись в json файл, загрузка его на яндекс диск и удаление с локального устройства
     with open(vk.id + '/information_about_saved_photos.json', 'w') as json_file:
         json.dump(information_about_saved_photos, json_file)
