@@ -85,8 +85,7 @@ class YaUploader:
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json',
                    'Authorization': f'OAuth {self.token}'}
-        response = requests.get(f'{base_url}?path={path}', headers=headers)
-        return response.status_code != 404
+        return requests.get(f'{base_url}?path={path}', headers=headers).status_code != 404
 
 
 # In[4]:
